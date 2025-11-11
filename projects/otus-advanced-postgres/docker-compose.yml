@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:15
+    container_name: pg15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: logistics
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata_old:/var/lib/postgresql/data
+      - pgdata_new:/var/lib/postgresql/newdata
+      - ./conf/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+    command:
+      - "postgres"
+      - "-c"
+      - "config_file=/etc/postgresql/postgresql.conf"
+volumes:
+  pgdata_old:
+  pgdata_new:
