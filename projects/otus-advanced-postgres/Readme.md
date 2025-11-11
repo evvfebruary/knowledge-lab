@@ -32,8 +32,6 @@
 
 **Docker Compose**
 ```yaml
-version: "3.9"
-
 services:
   db:
     image: postgres:15
@@ -48,8 +46,10 @@ services:
       - pgdata_old:/var/lib/postgresql/data
       - pgdata_new:/var/lib/postgresql/newdata
       - ./conf/postgresql.conf:/etc/postgresql/postgresql.conf:ro
-    command: ["postgres"]
-
+    command:
+      - "postgres"
+      - "-c"
+      - "config_file=/etc/postgresql/postgresql.conf"
 volumes:
   pgdata_old:
   pgdata_new:
